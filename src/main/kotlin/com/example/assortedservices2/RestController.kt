@@ -2,9 +2,7 @@ package com.example.assortedservices2
 
 import com.example.assortedservices2.DataReciver.DataRevicer
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.bind.annotation.RestController
 import javax.servlet.http.HttpServletRequest
 
@@ -12,6 +10,7 @@ import javax.servlet.http.HttpServletRequest
 class RestController {
 
     var homeIp = ""
+    var powerUse = "0"
     var recentData = DataRevicer()
 
     private var request: HttpServletRequest? = null
@@ -48,5 +47,14 @@ class RestController {
     @GetMapping ("api/getNodeRedData")
     fun getNodeRedData():DataRevicer {
         return recentData
+    }
+    @GetMapping ("api/power/setLivePowerUsage")
+    fun setLivePowerUsage(@RequestParam liveUsage:String){
+        powerUse = liveUsage
+        println("Live Power Usage: " + liveUsage)
+    }
+    @GetMapping ("api/power/live")
+    fun apiPowerLive():String {
+        return powerUse
     }
 }

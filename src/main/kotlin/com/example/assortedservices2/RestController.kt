@@ -1,7 +1,10 @@
 package com.example.assortedservices2
 
+import com.example.assortedservices2.DataReciver.DataRevicer
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import javax.servlet.http.HttpServletRequest
 
@@ -9,6 +12,7 @@ import javax.servlet.http.HttpServletRequest
 class RestController {
 
     var homeIp = ""
+    var recentData = DataRevicer()
 
     private var request: HttpServletRequest? = null
 
@@ -35,5 +39,14 @@ class RestController {
     @GetMapping("/getHomeIP")
     fun getHomeIP():String {
         return homeIp
+    }
+    @PostMapping("api/nodeRed/revciver")
+    fun nodeRedRevicer(@RequestBody data:DataRevicer) : String {
+        recentData = data
+        return "Data Recived!"
+    }
+    @GetMapping ("api/getNodeRedData")
+    fun getNodeRedData():DataRevicer {
+        return recentData
     }
 }

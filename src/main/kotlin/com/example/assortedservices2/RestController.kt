@@ -44,12 +44,10 @@ class RestController {
         recentData = data
         return "Data Recived!"
     }
-    @CrossOrigin(origins = ["http://localhost::80"])
     @GetMapping ("api/getNodeRedData")
     fun getNodeRedData():DataRevicer {
         return recentData
     }
-    @CrossOrigin(origins = ["http://localhost::80"])
     @GetMapping ("api/power/setLivePowerUsage")
     fun setLivePowerUsage(@RequestParam liveUsage:String){
         powerUse = liveUsage

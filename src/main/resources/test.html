@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live power use</title>
+</head>
+<body onload="onLoad()">
+<center>
+
+    <h1>Strømforbruk</h1><br>
+
+    <h1><div id="testElement"></div></h1>
+
+</center>
+</body>
+
+<script>
+
+
+    function httpGet(url) {
+        var header = {"Access-Control-Allow-Origin":"*"};
+
+        fetch(url, {
+            method : "GET",
+            mode: "cors",
+            headers: header
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(response.error)
+                }
+                return response.json();
+            })
+
+    }
+    function getNodeRedData() {
+        return httpGet("http://185.7.61.179:8080/api/getNodeRedData")
+    }
+
+    //this function enabels continius update of elements
+    function continiusUpdate(){
+        document.getElementById("testElement").innerHTML = getNodeRedData();
+    }
+    function loadStuff(){
+        document.getElementById("testElement").innerHTML = "Loading...."
+    }
+    function onLoad(){
+
+        loadStuff()
+        continiusUpdate()
+        //setInterval(function(){continiusUpdate()}, 1000)
+    }
+</script>
+</html>
